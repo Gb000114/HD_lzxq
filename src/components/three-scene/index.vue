@@ -49,7 +49,7 @@ export default {
     // 加载场景
     loadScene() {
       this.runScene = new RunScene({
-        path: "./assets/lzxq.glb",
+        path: "https://test2-1303915342.cos.ap-shanghai.myqcloud.com/Lzxq_demo/lzxq.glb",
         rootDom: this.$refs["three-scene"],
         options: {
           resize: true,
