@@ -69,6 +69,7 @@ export default {
         let Info = { bus: bus };
         // 所需要的信息统一成对象传入Change中
         this.change = new Change(runScene, Info).init(this.onDone);
+        this.$emit('ready')
       });
     },
     // 场景加载完毕回调
@@ -82,6 +83,7 @@ export default {
         if(model.name == item){
           console.log("111");
           this.change.warning.showBoard(item)
+
         }
       })
     },
@@ -116,8 +118,9 @@ export default {
   background-color: blue;
 }
 .warningboard{
-  width: 400px;
+  width: 1000px;
   height: 400px;
+  border-radius: 45px;
   background-color: red;
 }
 </style>

@@ -252,7 +252,8 @@ class Warning {
       sprite.name = `警告看板${item}`;
       sprite.visible = false;
       this.boardMap[item] = sprite;
-      sprite.position.y += 1;
+      sprite.position.y += 1.5;
+      sprite.position.z += 0.5;
       this.modelMap[item].add(sprite);
     });
   }
