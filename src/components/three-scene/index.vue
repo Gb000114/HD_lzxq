@@ -1,7 +1,11 @@
 <template>
   <div class="three-scene" ref="three-scene" onselectstart="return false;">
     <!-- 视频dom -->
-    <div class="videoboard" v-show="false"></div>
+    <div class="videoboard" v-show="false">
+      <video 
+      controls
+      src="https://mvwebfs.ali.kugou.com/202201071415/a32672f20fe6fc16533f4444d563e5f2/KGTX/CLTX002/acc5c3761511a61ef7f6af05cac011d1.mp4"></video>
+    </div>
     <!-- 视频dom -->
     <!-- ------------------------------------- -->
     <!-- 报警dom -->
@@ -118,14 +122,17 @@ export default {
   opacity: 1 !important;
 }
 .videoboard {
-  width: 150px;
-  height: 150px;
-  background-color: blue;
+  width: 300px;
+  height: 300px;
+  video{
+    width: 100%;
+    height: 100%;
+  }
 }
 .warningboard{
-  width: 1000px;
-  height: 400px;
-  border-radius: 45px;
-  background-color: red;
+  width: 1255px;
+  height: 1385px;
+  background-image: url('../../assets/warn-info.png');
+  background-size: cover;
 }
 </style>
