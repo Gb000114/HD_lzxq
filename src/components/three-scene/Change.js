@@ -198,11 +198,10 @@ class Video {
   //创建视频看板
   creatDom() {
     let dom = document.querySelector(".videoboard");
-    let sprite = p.domTo3DSprite(dom);
+    let sprite = p.domTo2Dui(dom);
     sprite.name = "视频面板";
     sprite.visible = false;
-    sprite.position.y += 1000;
-    sprite.position.z += 1000;
+    sprite.position.y += 3000;
     this.spriteDom = sprite;
     this.model.add(sprite);
   }
@@ -212,7 +211,7 @@ class Video {
     let zhongdian = p.getWorldLocal(this.spriteDom);
     let material = new THREE.LineBasicMaterial({
       color: 0x00000,
-      linewidth: 20,
+      linewidth: 100,
     });
     let bufferGeom = new THREE.BufferGeometry();
     let position = new Float32Array([

@@ -1,7 +1,12 @@
 <template>
   <div class="three-scene" ref="three-scene" onselectstart="return false;">
+    <!-- 视频dom -->
     <div class="videoboard" v-show="false"></div>
+    <!-- 视频dom -->
+    <!-- ------------------------------------- -->
+    <!-- 报警dom -->
     <div class="warningboard" v-for="(item,index) in ui" :key="index" :class="item" v-show="false"></div>
+    <!-- 报警dom -->
     <div
       class="btn"
       @pointerdown="
@@ -55,7 +60,7 @@ export default {
           resize: true,
           // firstTexture:true
           css3DRender: true,
-          // css2DRender: true,
+          css2DRender: true,
           // run: false,
           static: false,
           level: 2,
@@ -113,8 +118,8 @@ export default {
   opacity: 1 !important;
 }
 .videoboard {
-  width: 400px;
-  height: 400px;
+  width: 150px;
+  height: 150px;
   background-color: blue;
 }
 .warningboard{
