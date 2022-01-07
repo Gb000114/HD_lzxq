@@ -1,7 +1,7 @@
 <template>
   <div class="three-scene" ref="three-scene" onselectstart="return false;">
     <!-- 视频dom -->
-    <div class="videoboard" v-show="false">
+    <div class="videoboard" v-show="false" v-for="(item,index) in videoList" :key="index" :class="item">
       <video 
       controls
       src="https://mvwebfs.ali.kugou.com/202201071415/a32672f20fe6fc16533f4444d563e5f2/KGTX/CLTX002/acc5c3761511a61ef7f6af05cac011d1.mp4"></video>
@@ -37,15 +37,17 @@ export default {
       ui: [
         "Sprite7",
         "Sprite8",
-        "Sprite2",
-        "Sprite1",
         "Sprite10",
         "Sprite4",
-        "Sprite6",
-        "Sprite11",
-        "Sprite9",
-        "Sprite3",
       ],
+      videoList:[
+        'Sprite1',
+        'Sprite2',
+        'Sprite3',
+        'Sprite6',
+        'Sprite9',
+        'Sprite11',
+      ]
     };
   },
   mounted() {
@@ -92,7 +94,12 @@ export default {
         if(model.name == item){
           console.log("111");
           this.change.warning.showBoard(item)
-
+        }
+      })
+      this.videoList.map((item)=>{
+        if(model.name == item){
+          console.log(item);
+          this.change.video.showBoard(item)
         }
       })
     },
@@ -122,8 +129,8 @@ export default {
   opacity: 1 !important;
 }
 .videoboard {
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   video{
     width: 100%;
     height: 100%;

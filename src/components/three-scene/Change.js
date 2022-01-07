@@ -46,11 +46,11 @@ function Change(runScene, info) {
       runScene.setLoopFn(this.running);
       //相机缓动
       controls.enableDamping = true;
-           // 限制控制器的范围
-           controls.screenSpacePanning = false;
-           controls.minDistance = 10000;
-           controls.maxDistance = 18000;
-           controls.maxPolarAngle = Math.PI / 2 - 0.4;
+      // 限制控制器的范围
+      controls.screenSpacePanning = false;
+      controls.minDistance = 10000;
+      controls.maxDistance = 18000;
+      controls.maxPolarAngle = Math.PI / 2 - 0.4;
 
       //入场动画
       //this.entranceAmin();
@@ -156,10 +156,6 @@ class Events {
 
     console.log("点击的对象", obj.name, obj);
 
-    if (obj.name == "weidangtexiao1_46") {
-      t.video.spriteDom.visible = !t.video.spriteDom.visible;
-      t.video.line.visible = !t.video.line.visible;
-    }
     // 点击打印模型接口
     t.bus.$emit("logClickModel", obj);
   };
@@ -185,62 +181,113 @@ class Events {
 }
 //视频看板
 class Video {
-  //点击的模型
-  model = p.getModel("group1_297");
-  //连线
-  line;
   //dom
-  spriteDom;
+  spriteDom = {};
+  lines = {};
   constructor() {
+    this.init();
     this.creatDom();
     this.creatLine();
   }
+  videoList = {
+    Sprite1: p.getModel("Sprite1"),
+    Sprite2: p.getModel("Sprite2"),
+    Sprite3: p.getModel("Sprite3"),
+    Sprite6: p.getModel("Sprite6"),
+    Sprite9: p.getModel("Sprite9"),
+    Sprite11: p.getModel("Sprite11"),
+  };
+  init() {
+    let model = p.getModel("weidangtexiao1_46");
+    let materialold = model.material.clone();
+    let materialEmissive = model.material.emissive.clone();
+    model.material = materialold;
+    model.material.emissive = materialEmissive;
+    model.material.emissive = new THREE.Color("rgba(255,0,0,1)");
+  }
+  showBoard(name){
+    this.spriteDom[name].visible = !this.spriteDom[name].visible;
+    this.lines[name].visible = !this.lines[name].visible;
+  }
   //创建视频看板
   creatDom() {
-    let dom = document.querySelector(".videoboard");
-    let sprite = p.domTo2Dui(dom);
-    sprite.name = "视频面板";
-    sprite.visible = false;
-    sprite.position.y += 3000;
-    this.spriteDom = sprite;
-    this.model.add(sprite);
+    Object.keys(this.videoList).map((item, index) => {
+      let dom = document.querySelector(`.${item}`);
+      let sprite = p.domTo2Dui(dom);
+      (sprite.name = `视频面板${index}`),
+      sprite.visible = false;
+      sprite.position.y += 5;
+      this.spriteDom[item] = sprite;
+      this.videoList[item].add(sprite);
+    });
+    // let dom = document.querySelector(".videoboard");
+    // let sprite = p.domTo2Dui(dom);
+    // sprite.name = "视频面板";
+    // sprite.visible = false;
+    // sprite.position.y += 3000;
+    // this.spriteDom = sprite;
+    // this.redBuilding.add(sprite);
   }
   //创建线
   creatLine() {
-    let qidian = p.getWorldLocal(this.model);
-    let zhongdian = p.getWorldLocal(this.spriteDom);
     let material = new THREE.LineBasicMaterial({
       color: 0x00000,
       linewidth: 100,
     });
-    let bufferGeom = new THREE.BufferGeometry();
-    let position = new Float32Array([
-      qidian.x,
-      qidian.y,
-      qidian.z,
-      zhongdian.x,
-      zhongdian.y,
-      zhongdian.z,
-    ]);
-    bufferGeom.setAttribute("position", new THREE.BufferAttribute(position, 3));
-    this.line = new THREE.Line(bufferGeom, material);
-    this.line.visible = false;
-    this.line.name = "视频面板连线";
-    scene.add(this.line);
+    Object.keys(this.videoList).map((item) => {
+      let qidian = p.getWorldLocal(this.videoList[item]);
+      let zhongdian = p.getWorldLocal(this.spriteDom[item]);
+      let bufferGeom = new THREE.BufferGeometry();
+      let position = new Float32Array([
+        qidian.x,
+        qidian.y,
+        qidian.z,
+        zhongdian.x,
+        zhongdian.y,
+        zhongdian.z,
+      ]);
+      bufferGeom.setAttribute(
+        "position",
+        new THREE.BufferAttribute(position, 3)
+      );
+      let line = new THREE.Line(bufferGeom, material);
+      line.visible = false;
+      line.name = "视频面板连线";
+      this.lines[item] = line;
+      scene.add(line);
+    });
+    // let qidian = p.getWorldLocal(this.redBuilding);
+    // let zhongdian = p.getWorldLocal(this.spriteDom);
+
+    // let bufferGeom = new THREE.BufferGeometry();
+    // let position = new Float32Array([
+    //   qidian.x,
+    //   qidian.y,
+    //   qidian.z,
+    //   zhongdian.x,
+    //   zhongdian.y,
+    //   zhongdian.z,
+    // ]);
+    // bufferGeom.setAttribute("position", new THREE.BufferAttribute(position, 3));
+    // this.line = new THREE.Line(bufferGeom, material);
+    // this.line.visible = false;
+    // this.line.name = "视频面板连线";
+    // scene.add(this.line);
   }
 }
 //UI警告看板
 class Warning {
   //点击的模型
-  modelMap = {};
+  modelMap = {
+    "Sprite7":p.getModel('Sprite7'),
+    "Sprite8":p.getModel('Sprite8'),
+    "Sprite10":p.getModel('Sprite10'),
+    "Sprite4":p.getModel('Sprite4'),
+  };
   //显示的看板
   boardMap = {};
   constructor() {
     //初始化点击的模型
-    new Array(11).fill().map((_,i) => {
-      this.modelMap[`Sprite${i+1}`] = p.getModel(`Sprite${i+1}`)
-      
-    });
     this.creatDom();
   }
   //创建看板
