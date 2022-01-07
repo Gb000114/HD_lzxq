@@ -11,8 +11,9 @@
     <div class="right" v-show="isShow">
       <div class="flow"></div>
       <div class="car"></div>
-      <div class="floor bg"></div>
+      <div class="floor bg"></div>     
     </div>
+    <div class="warn" v-show="isShow"></div>
     <div class="bottom">
       <div class="dispatch" v-show="isShow"></div>
       <div class="manage" v-show="isShow"></div>
@@ -45,46 +46,12 @@ export default {
   width: 100vw;
   height: 100vh;
 }
-@keyframes fadeInLeftBig {
-  from {
-    left: -400px;
-  }
-  to {
-    left: 43px;
-  }
-}
-@-webkit-keyframes fadeInLeftBig /*Safari and Chrome*/ {
-  from {
-    left: -400px;
-  }
-  to {
-    left: 43px;
-  }
-}
-@keyframes fadeInRightBig {
-  from {
-    right: -400px;
-  }
-  to {
-    right: 46px;
-  }
-}
-@-webkit-keyframes fadeInRightBig /*Safari and Chrome*/ {
-  from {
-    right: -400px;
-  }
-  to {
-    right: 46px;
-  }
-}
 
 .left {
   position: absolute;
   left: 30px;
   top: 124px;
   z-index: 3;
-  animation: fadeInLeftBig 4s;
-  -webkit-animation: fadeInLeftBig 4s;
   .event {
     background-image: url("../../assets/事件.png");
     width: 361px;
@@ -99,13 +66,20 @@ export default {
     background-size: cover;
   }
 }
+.warn{
+  position: absolute;
+  top: 124px;
+  right: 402px;
+  background-image: url('../../assets/warn-info.png');
+  width: 251px;
+  height: 277px;
+  background-size: cover;
+}
 .right {
   position: absolute;
   right: 28px;
   z-index: 3;
   top: 124px;
-  animation: fadeInRightBig 4s;
-  -webkit-animation: fadeInRightBig 4s;
   .bg {
     width: 340px;
     height: 220px;
