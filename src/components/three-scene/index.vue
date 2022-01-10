@@ -4,7 +4,9 @@
     <div class="videoboard" v-show="false" v-for="(item,index) in videoList" :key="index" :class="item">
       <video 
       controls
-      src="https://mvwebfs.ali.kugou.com/202201071415/a32672f20fe6fc16533f4444d563e5f2/KGTX/CLTX002/acc5c3761511a61ef7f6af05cac011d1.mp4"></video>
+      autoplay
+      src="https://mvwebfs.ali.kugou.com/202201100908/500b8d8e2b21bf284efafdad4c1d0d0c/KGTX/CLTX002/acc5c3761511a61ef7f6af05cac011d1.mp4">
+      </video>
     </div>
     <!-- 视频dom -->
     <!-- ------------------------------------- -->
@@ -129,8 +131,8 @@ export default {
   opacity: 1 !important;
 }
 .videoboard {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   video{
     width: 100%;
     height: 100%;
